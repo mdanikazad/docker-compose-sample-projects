@@ -1,0 +1,7 @@
+# Keep the build context small: nothing here is needed to compile the binary.
+.git
+.gitignore
+*.md
+.dockerignore
+Dockerfile*
+docker-compose.yml

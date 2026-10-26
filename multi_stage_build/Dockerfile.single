@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1
+
+# A single-stage build of the same application, kept only for comparison.
+# The final image contains the Go toolchain, the module cache and the source
+# code, so it is dramatically larger than the multi-stage build.
+#
+# Build it with:
+#   docker build -f Dockerfile.single -t multi-stage-demo:single .
+#   docker run --rm -p 8080:8080 multi-stage-demo:single
+
+FROM golang:1.22-alpine
+
+WORKDIR /src
+
+COPY . .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o /out/app .
+
+ENV PORT=8080
+EXPOSE 8080
+
+ENTRYPOINT ["/out/app"]

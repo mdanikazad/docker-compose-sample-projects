@@ -1,0 +1,6 @@
+# Build artifacts
+/app
+/app.exe
+
+# Local Go build output
+multi_stage_build
