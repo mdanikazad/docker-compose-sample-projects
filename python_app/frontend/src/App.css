@@ -1,0 +1,465 @@
+:root {
+  --bg: #0f1020;
+  --bg-soft: #171832;
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --text: #f4f5ff;
+  --text-dim: #a7abc9;
+  --violet: #8b5cf6;
+  --pink: #ec4899;
+  --cyan: #22d3ee;
+  --lime: #a3e635;
+  --amber: #fbbf24;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  padding: 48px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  overflow: hidden;
+}
+
+/* --- Ambient colour blobs ------------------------------------------------ */
+.aurora {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-one {
+  width: 460px;
+  height: 460px;
+  top: -160px;
+  left: -120px;
+  background: radial-gradient(circle, var(--violet), transparent 70%);
+  animation: drift-one 16s ease-in-out infinite alternate;
+}
+
+.aurora-two {
+  width: 420px;
+  height: 420px;
+  top: 30%;
+  right: -140px;
+  background: radial-gradient(circle, var(--pink), transparent 70%);
+  animation: drift-two 18s ease-in-out infinite alternate;
+}
+
+.aurora-three {
+  width: 380px;
+  height: 380px;
+  bottom: -160px;
+  left: 35%;
+  background: radial-gradient(circle, var(--cyan), transparent 70%);
+  animation: drift-three 20s ease-in-out infinite alternate;
+}
+
+@keyframes drift-one {
+  to {
+    transform: translate(70px, 50px) scale(1.15);
+  }
+}
+
+@keyframes drift-two {
+  to {
+    transform: translate(-60px, -40px) scale(1.1);
+  }
+}
+
+@keyframes drift-three {
+  to {
+    transform: translate(40px, -60px) scale(1.2);
+  }
+}
+
+/* --- Hero ---------------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 640px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(38px, 8vw, 60px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  background: linear-gradient(120deg, #ffffff 20%, var(--violet) 55%, var(--pink) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title-accent {
+  background: linear-gradient(120deg, var(--cyan), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  margin: 14px 0 0;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+
+/* --- Stat cards ---------------------------------------------------------- */
+.stats {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  min-width: 104px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: var(--shadow);
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.stat-total .stat-value {
+  color: var(--cyan);
+}
+
+.stat-active .stat-value {
+  color: var(--amber);
+}
+
+.stat-done .stat-value {
+  color: var(--lime);
+}
+
+/* --- Panel --------------------------------------------------------------- */
+.panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  padding: 26px;
+  border-radius: 24px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+/* --- Composer ------------------------------------------------------------ */
+.composer {
+  display: flex;
+  gap: 12px;
+}
+
+.task-input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.task-input::placeholder {
+  color: #6f7396;
+}
+
+.task-input:focus {
+  border-color: var(--violet);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.28);
+}
+
+.btn-add {
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  color: #fff;
+  background: linear-gradient(135deg, var(--violet), var(--pink));
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+  box-shadow: 0 8px 22px rgba(236, 72, 153, 0.32);
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 12px 28px rgba(236, 72, 153, 0.42);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+/* --- Filters ------------------------------------------------------------- */
+.filters {
+  margin: 20px 0 6px;
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn.is-active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--violet), var(--pink));
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(139, 92, 246, 0.35);
+}
+
+/* --- Alerts and states --------------------------------------------------- */
+.alert {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.state-msg {
+  padding: 34px 10px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.state-msg.empty {
+  color: #7f83a8;
+}
+
+/* --- Task list ----------------------------------------------------------- */
+.task-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid var(--panel-border);
+  border-left: 3px solid var(--violet);
+  transition: transform 0.15s, border-color 0.2s, background 0.2s;
+  animation: slide-in 0.25s ease-out;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-item:hover {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.task-item.is-done {
+  border-left-color: var(--lime);
+  opacity: 0.62;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid var(--violet);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.checkbox:hover {
+  transform: scale(1.12);
+  border-color: var(--cyan);
+}
+
+.checkmark {
+  color: #06251a;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.task-item.is-done .checkbox {
+  background: var(--lime);
+  border-color: var(--lime);
+}
+
+.task-title {
+  flex: 1;
+  cursor: pointer;
+  font-size: 15px;
+  word-break: break-word;
+  transition: color 0.2s;
+}
+
+.task-item.is-done .task-title {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.btn-delete {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--panel-border);
+  border-radius: 9px;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.btn-delete:hover {
+  color: #fff;
+  background: rgba(239, 68, 68, 0.85);
+  border-color: transparent;
+  transform: rotate(90deg);
+}
+
+/* --- Footer -------------------------------------------------------------- */
+.footer {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.footer code {
+  padding: 3px 8px;
+  border-radius: 7px;
+  font-size: 12px;
+  color: var(--cyan);
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+}
+
+/* --- Responsive ---------------------------------------------------------- */
+@media (max-width: 560px) {
+  .app-shell {
+    padding: 32px 14px 28px;
+  }
+
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .composer {
+    flex-direction: column;
+  }
+
+  .btn-add {
+    width: 100%;
+  }
+
+  .stat-card {
+    min-width: 88px;
+    padding: 12px 14px;
+  }
+}

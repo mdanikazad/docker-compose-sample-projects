@@ -25,12 +25,22 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/tasks')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   frontend:
     build:
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
+    # The frontend is a static bundle served by nginx, so it does not need the
+    # API to be up in order to start. nginx resolves "backend" per request,
+    # which means the UI is reachable in the very first attempt even while the
+    # API is still booting.
     depends_on:
       backend:
         condition: service_started
